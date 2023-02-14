@@ -1,0 +1,6 @@
+.sidenav {
+    padding: 2rem;
+    background-color: var(--paper);
+    box-sizing: border-box;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
