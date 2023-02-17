@@ -8,6 +8,8 @@ declare const MAIN_WINDOW_PRELOAD_WEBPACK_ENTRY: string;
 
 process.env['ELECTRON_DISABLE_SECURITY_WARNINGS'] = 'true';
 
+app.commandLine.appendSwitch('force_high_performance_gpu');
+
 // Handle creating/removing shortcuts on Windows when installing/uninstalling.
 if (require('electron-squirrel-startup')) {
     app.quit();
