@@ -2,6 +2,7 @@
     --primary: #2697e2;
     --primary-light: #69b1e0;
     --paper: #383838;
+    --button: #424242;
     --background: #494949;
     --hr: #585858;
     --primary-text: #fafafa;
@@ -38,6 +39,10 @@ a {
 }
 
 a:hover {
+    color: var(--primary-light);
+}
+
+a:active {
     color: var(--primary-light);
 }
 
