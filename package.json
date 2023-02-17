@@ -24,6 +24,7 @@
         "@electron-forge/maker-squirrel": "^6.0.5",
         "@electron-forge/maker-zip": "^6.0.5",
         "@electron-forge/plugin-webpack": "^6.0.5",
+        "@types/carbon__icons-react": "^11.15.0",
         "@types/react": "^18.0.28",
         "@types/react-dom": "^18.0.10",
         "@typescript-eslint/eslint-plugin": "^5.51.0",
@@ -44,6 +45,7 @@
         "typescript": "~4.5.4"
     },
     "dependencies": {
+        "@carbon/icons-react": "^11.16.0",
         "@prisma/client": "^4.10.1",
         "@reduxjs/toolkit": "^1.9.2",
         "electron-squirrel-startup": "^1.0.0",
@@ -51,6 +53,7 @@
         "react-dom": "^18.2.0",
         "react-redux": "^8.0.5",
         "react-router-dom": "^6.8.1",
-        "redux": "^4.2.1"
+        "redux": "^4.2.1",
+        "typeface-roboto": "^1.1.13"
     }
 }
