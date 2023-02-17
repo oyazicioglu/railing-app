@@ -12,7 +12,9 @@ datasource db {
 }
 
 model Project {
-  id     Int     @id @default(autoincrement())
-  name   String
-  active Boolean @default(false)
+  id        Int       @id @default(autoincrement())
+  name      String
+  active    Boolean?  @default(false)
+  updatedAt DateTime?
+  createdAt DateTime  @default(now())
 }
