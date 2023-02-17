@@ -4,7 +4,7 @@
 import { contextBridge, ipcRenderer, IpcRendererEvent } from 'electron';
 
 export interface IBrideEvents {
-    send: (channel: string, args?: []) => void;
+    send: <T>(channel: string, args?: T[] | T) => void;
     on: (channel: string, callback: CallableFunction) => void;
 }
 
@@ -15,13 +15,12 @@ declare global {
 }
 
 contextBridge.exposeInMainWorld('eventBridge', {
-    send: (channel: string, args?: []) => {
-        ipcRenderer.removeAllListeners(channel);
+    send: <T>(channel: string, args?: T[] | T) => {
         ipcRenderer.send(channel, args);
     },
     on: (channel: string, callback: CallableFunction) => {
+        ipcRenderer.removeAllListeners(channel);
         ipcRenderer.on(channel, (event: IpcRendererEvent, args: []) => {
-            ipcRenderer.removeAllListeners(channel);
             callback(args);
         });
     },
