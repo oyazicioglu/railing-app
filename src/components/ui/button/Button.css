@@ -8,7 +8,6 @@
     cursor: pointer;
     position: relative;
     overflow: hidden;
-    width: 3rem;
 }
 
 .qbutton.transparent {
@@ -48,11 +47,15 @@
     color: var(--primary-text);
 }
 
-.qbutton.size-small {
+.qbutton.is-circle.size-normal {
+    width: 3rem;
+}
+
+.qbutton.is-circle.size-small {
     width: 2.5rem;
 }
 
-.qbutton.size-large {
+.qbutton.is-circle.size-large {
     width: 4rem;
 }
 
@@ -64,4 +67,8 @@
     display: grid;
     grid-auto-flow: column;
     align-items: center;
+}
+
+.qbutton:not(.transparent).danger {
+    background-color: var(--danger);
 }

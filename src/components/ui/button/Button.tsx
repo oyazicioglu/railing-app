@@ -4,7 +4,7 @@ import { PropsBase } from '../../../lib/electron/Props.Base';
 import './Button.css';
 
 interface Props extends PropsBase {
-    kind?: 'primary' | 'secondary';
+    kind?: 'primary' | 'secondary' | 'danger';
     size?: 'normal' | 'small' | 'large';
     hasShadow?: boolean;
     isCircle?: boolean;
