@@ -12,13 +12,15 @@ import { Modal } from '../../components/ui/modal/Modal';
 import { NewProjectModal } from '../../components/page/project/NewProjectModal';
 import { NavLink } from 'react-router-dom';
 import { DeleteProjectModelContent } from '../../components/page/project/DeleteProjectModelContent';
+import { UpdateProjectModalContent } from '../../components/page/project/UpdateProjectModalContent';
 
 export const Projects = () => {
     const { send, on } = window.eventBridge;
     const [projects, setProjects] = useState<IProject[]>([]);
     const [showNewProjectModal, setShowNewProjectModal] = useState(false);
     const [showDeleteProjectModal, setShowDeleteProjectModal] = useState(false);
-    const [activeProjectId, setActiveProjectId] = useState(0);
+    const [showUpdateProjectModal, setShowUpdateProjectModal] = useState(false);
+    const [activeProject, setActiveProject] = useState<IProject>(undefined);
 
     const toggleShowNewProjectModal = () => {
         setShowNewProjectModal(!showNewProjectModal);
@@ -41,9 +43,9 @@ export const Projects = () => {
             {showNewProjectModal && (
                 <Modal autoClose onClose={toggleShowNewProjectModal}>
                     <NewProjectModal
-                        onClose={() => {
+                        onClose={(update: boolean) => {
                             toggleShowNewProjectModal();
-                            getProjects();
+                            if (update) getProjects();
                         }}
                     ></NewProjectModal>
                 </Modal>
@@ -53,18 +55,41 @@ export const Projects = () => {
                 <Modal
                     autoClose
                     onClose={() => {
-                        setActiveProjectId(0);
+                        setActiveProject(undefined);
                         setShowDeleteProjectModal(false);
                     }}
                 >
                     <DeleteProjectModelContent
                         onClose={(update: boolean) => {
-                            setActiveProjectId(0);
+                            setActiveProject(undefined);
                             setShowDeleteProjectModal(false);
-                            getProjects();
+                            if (update) {
+                                getProjects();
+                            }
                         }}
-                        projectId={activeProjectId}
+                        projectId={activeProject.id}
                     ></DeleteProjectModelContent>
+                </Modal>
+            )}
+
+            {showUpdateProjectModal && (
+                <Modal
+                    autoClose
+                    onClose={() => {
+                        setActiveProject(undefined);
+                        setShowUpdateProjectModal(false);
+                    }}
+                >
+                    <UpdateProjectModalContent
+                        onClose={(update: boolean) => {
+                            setActiveProject(undefined);
+                            setShowUpdateProjectModal(false);
+                            if (update) {
+                                getProjects();
+                            }
+                        }}
+                        project={activeProject}
+                    ></UpdateProjectModalContent>
                 </Modal>
             )}
 
@@ -113,12 +138,20 @@ export const Projects = () => {
                                     </td>
                                     <td style={{ verticalAlign: 'baseline' }}>
                                         <span className="action-buttons">
-                                            <Button size="small" isCircle isTransparent>
+                                            <Button
+                                                onClick={() => {
+                                                    setActiveProject(project);
+                                                    setShowUpdateProjectModal(true);
+                                                }}
+                                                size="small"
+                                                isCircle
+                                                isTransparent
+                                            >
                                                 <Edit></Edit>
                                             </Button>
                                             <Button
                                                 onClick={() => {
-                                                    setActiveProjectId(project.id);
+                                                    setActiveProject(project);
                                                     setShowDeleteProjectModal(true);
                                                 }}
                                                 size="small"

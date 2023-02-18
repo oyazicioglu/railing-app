@@ -48,12 +48,32 @@ export class ProjectRepository {
 
     async Delete(projectId: number) {
         const client = new PrismaClient();
-        const project = await client.project.delete({
-            where: {
-                id: projectId,
-            },
-        });
+        const project = await client.project
+            .delete({
+                where: {
+                    id: projectId,
+                },
+            })
+            .finally(() => {
+                client.$disconnect();
+            });
 
         return project;
+    }
+
+    async Update(project: Project) {
+        const client = new PrismaClient();
+        const updatedProject = await client.project
+            .update({
+                data: project,
+                where: {
+                    id: project.id,
+                },
+            })
+            .finally(() => {
+                client.$disconnect();
+            });
+
+        return updatedProject;
     }
 }

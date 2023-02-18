@@ -4,5 +4,6 @@ export const channels = {
         add: 'project:add',
         get: 'project:get',
         delete: 'project:delete',
+        update: 'project:update',
     },
 };

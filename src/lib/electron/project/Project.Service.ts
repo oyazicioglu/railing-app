@@ -12,6 +12,10 @@ export class ProjectService {
         return this.repository.Add(project);
     }
 
+    async Update(project: Project) {
+        return this.repository.Update(project);
+    }
+
     async Get(id: number) {
         return this.repository.Get(id);
     }

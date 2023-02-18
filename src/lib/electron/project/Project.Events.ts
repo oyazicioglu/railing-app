@@ -13,6 +13,7 @@ export class ProjectEvents {
         this.registerAddEvent();
         this.registerGetEvent();
         this.registerDeleteEvent();
+        this.registerUpdateEvent();
     }
 
     private registerListEvent() {
@@ -42,6 +43,16 @@ export class ProjectEvents {
             const { id } = args;
             const deleteResult = await this.service.Delete(id).catch((error) => error);
             event.sender.send(channels.project.delete, deleteResult);
+        });
+    }
+
+    private registerUpdateEvent() {
+        this.ipc.on(channels.project.update, async (event: IpcMainEvent, args: any) => {
+            const { project } = args;
+            const updateResult = await this.service
+                .Update(project as Project)
+                .catch((error) => console.log(error));
+            event.sender.send(channels.project.update, updateResult);
         });
     }
 }

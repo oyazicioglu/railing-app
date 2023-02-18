@@ -9,14 +9,16 @@ import { IProject } from './IProject';
 
 interface Props extends PropsBase {
     onClose?: (update: boolean) => void;
+    project: IProject;
 }
 
 interface FormData {
     name: string;
     active: boolean;
+    id: number;
 }
 
-export const NewProjectModal = (props: Props) => {
+export const UpdateProjectModalContent = ({ onClose, project }: Props) => {
     const { send, on } = window.eventBridge;
     const [name, setName] = useState('');
 
@@ -25,18 +27,23 @@ export const NewProjectModal = (props: Props) => {
         const formData: FormData = {
             name: name,
             active: true,
+            id: project.id,
         };
 
-        send<FormData>(channels.project.add, formData);
+        send<{ project: FormData }>(channels.project.update, { project: formData });
 
-        on(channels.project.add, (data?: IProject) => {
+        on(channels.project.update, (data?: IProject) => {
             if (data.id) {
-                props.onClose(true);
+                onClose(true);
             } else {
-                props.onClose(false);
+                onClose(false);
             }
         });
     };
+
+    useEffect(() => {
+        setName(project.name);
+    }, []);
 
     return (
         <div className="project-modal">
@@ -51,7 +58,7 @@ export const NewProjectModal = (props: Props) => {
                     placeholder="Proje Adı"
                 ></TextInput>
                 <Button isSubmit fullWidth kind="primary">
-                    Ekle
+                    Güncelle
                 </Button>
             </Form>
         </div>
