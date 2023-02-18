@@ -37,6 +37,7 @@
         "eslint": "^8.34.0",
         "eslint-plugin-import": "^2.27.5",
         "fork-ts-checker-webpack-plugin": "^7.3.0",
+        "next-transpile-modules": "^10.0.0",
         "node-loader": "^2.0.0",
         "prisma": "^4.10.1",
         "style-loader": "^3.3.1",
@@ -47,13 +48,18 @@
     "dependencies": {
         "@carbon/icons-react": "^11.16.0",
         "@prisma/client": "^4.10.1",
+        "@react-three/drei": "^9.56.25",
+        "@react-three/fiber": "^8.11.2",
+        "@react-three/gpu-pathtracer": "^0.0.3",
         "@reduxjs/toolkit": "^1.9.2",
+        "@types/three": "^0.149.0",
         "electron-squirrel-startup": "^1.0.0",
         "react": "^18.2.0",
         "react-dom": "^18.2.0",
         "react-redux": "^8.0.5",
         "react-router-dom": "^6.8.1",
         "redux": "^4.2.1",
+        "three": "^0.149.0",
         "typeface-roboto": "^1.1.13"
     }
 }
