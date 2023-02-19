@@ -4,6 +4,9 @@ import { PropsBase } from '../../../lib/electron/Props.Base';
 import { Button } from '../../ui/button/Button';
 import { Form } from '../../ui/form/Form';
 import { TextInput } from '../../ui/form/input/TextInput';
+import { Select } from '../../ui/select/Select';
+import { SelectItem } from '../../ui/select/SelectItem';
+import { Stack } from '../../ui/stack/Stack';
 import { Title } from '../../ui/title/Title';
 import { IProject } from './IProject';
 
@@ -42,17 +45,23 @@ export const NewProjectModal = (props: Props) => {
         <div className="project-modal">
             <Title title="Yeni Proje"></Title>
             <Form onSubmit={handleSubmit}>
-                <TextInput
-                    onValueChange={(e) => {
-                        setName(e.target.value);
-                    }}
-                    value={name}
-                    width="400px"
-                    placeholder="Proje Adı"
-                ></TextInput>
-                <Button isSubmit fullWidth kind="primary">
-                    Ekle
-                </Button>
+                <Stack orientation="column" gap={2}>
+                    <TextInput
+                        onValueChange={(e) => {
+                            setName(e.target.value);
+                        }}
+                        value={name}
+                        width="400px"
+                        placeholder="Proje Adı"
+                    ></TextInput>
+                    <Select name="project-type">
+                        <SelectItem value="1" text="Tİp 1"></SelectItem>
+                        <SelectItem value="2" text="Tip 2"></SelectItem>
+                    </Select>
+                    <Button isSubmit fullWidth kind="primary">
+                        Ekle
+                    </Button>
+                </Stack>
             </Form>
         </div>
     );
