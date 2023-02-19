@@ -11,7 +11,7 @@ export const Stack = ({ gap, children, orientation }: Props) => {
     if (!orientation) orientation = 'row';
 
     return (
-        <div className="stack" style={{ gap: gap, flexDirection: orientation }}>
+        <div className="stack" style={{ gap: `${gap}rem`, flexDirection: orientation }}>
             {children}
         </div>
     );
