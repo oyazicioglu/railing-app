@@ -17,4 +17,12 @@ model Project {
   active    Boolean?  @default(false)
   updatedAt DateTime?
   createdAt DateTime  @default(now())
+  system    System?   @relation(fields: [systemId], references: [id])
+  systemId  Int
+}
+
+model System {
+  id       Int       @id @default(autoincrement())
+  name     String
+  projects Project[]
 }

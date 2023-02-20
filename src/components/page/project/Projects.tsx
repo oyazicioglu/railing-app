@@ -4,6 +4,7 @@ import { ColumnsType } from 'antd/es/table';
 import React, { useContext, useEffect, useState } from 'react';
 import { channels } from '../../../lib/electron/events/Electron.Channels';
 import { PropsBase } from '../../../lib/electron/Props.Base'
+import { ISystem } from '../../../lib/electron/system/ISystem';
 import { IProject } from './IProject'
 import ProjectContext from './ProjectContext';
 
@@ -21,6 +22,13 @@ interface ConvertedProject {
     createdAt: string;
     updatedAt: string;
     active: boolean;
+    systemName: string;
+}
+
+interface ConvertedSystem {
+    key: number;
+    id: number;
+    name: string;
 }
 
 
@@ -54,6 +62,12 @@ const Projects = (props: Props) => {
             )
         },
         {
+            title: 'Sistem',
+            dataIndex: 'systemName',
+            key: 'systemName',
+            width: '256px'
+        },
+        {
             title: 'Güncelleme Tarihi',
             dataIndex: 'updatedAt',
             key: 'updatedAt',
@@ -74,7 +88,7 @@ const Projects = (props: Props) => {
             createdAt: new Date(project.createdAt),
             name: project.name,
             id: project.id,
-            updatedAt: new Date(project.updatedAt)
+            updatedAt: new Date(project.updatedAt),
         });
     }
 
@@ -92,8 +106,11 @@ const Projects = (props: Props) => {
                 active: project.active,
                 createdAt: new Date(project.createdAt).toLocaleDateString('tr', { dateStyle: 'medium' }),
                 updatedAt: project.updatedAt ? new Date(project.updatedAt).toLocaleDateString('tr', { dateStyle: 'medium' }) : '-',
+                systemName: project.system.name
             }
         })
+
+        console.log(convertedProject)
         setProjects(convertedProject)
     })
 

@@ -3,12 +3,36 @@ import { PrismaClient } from '@prisma/client'
 const prisma = new PrismaClient()
 
 async function main() {
+    const system1 = await prisma.system.upsert({
+        where: { id: 1 },
+        create: {
+            name: "Milas",
+            id: 1
+        },
+        update: {}
+    })
+
+    const system2 = await prisma.system.upsert({
+        where: { id: 2 },
+        create: {
+            name: "Bodrum",
+            id: 2
+        },
+        update: {}
+    })
+
     const proje1 = await prisma.project.upsert({
         where: { id: 1 },
         update: {},
         create: {
             name: 'Proje 1',
-            createdAt: new Date(Date.now())
+            createdAt: new Date(Date.now()),
+            system: {
+                connectOrCreate: {
+                    create: system1,
+                    where: { id: 1 }
+                }
+            }
         },
     })
 
@@ -18,7 +42,13 @@ async function main() {
         create: {
             name: 'Proje 2',
             active: false,
-            createdAt: new Date(Date.now())
+            createdAt: new Date(Date.now()),
+            system: {
+                connectOrCreate: {
+                    create: system2,
+                    where: { id: 2 }
+                }
+            }
         },
     })
 
@@ -28,7 +58,13 @@ async function main() {
         create: {
             name: 'Proje 3',
             active: true,
-            createdAt: new Date(Date.now())
+            createdAt: new Date(Date.now()),
+            system: {
+                connectOrCreate: {
+                    create: system1,
+                    where: { id: 1 }
+                }
+            }
         },
     })
 
@@ -38,7 +74,13 @@ async function main() {
         create: {
             name: 'Proje 4',
             active: true,
-            createdAt: new Date(Date.now())
+            createdAt: new Date(Date.now()),
+            system: {
+                connectOrCreate: {
+                    create: system2,
+                    where: { id: 2 }
+                }
+            }
         },
     })
 }

@@ -6,6 +6,9 @@ export class ProjectRepository {
         const projects = await client.project
             .findMany({
                 orderBy: [{ active: 'desc' }, { updatedAt: 'desc' }, { id: 'desc' }],
+                include: {
+                    system: true
+                }
             })
             .catch((error) => {
                 console.log(error);
