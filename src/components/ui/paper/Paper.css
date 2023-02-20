@@ -1,7 +1,0 @@
-.paper {
-    background-color: var(--paper);
-}
-
-.paper.rounded {
-    border-radius: 1rem;
-}

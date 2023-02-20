@@ -1,8 +1,0 @@
-.sidenav-item {
-    padding: 0.25rem;
-    box-sizing: border-box;
-}
-
-.sidenav-item .active {
-    color: var(--primary);
-}
