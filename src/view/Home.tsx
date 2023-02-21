@@ -5,6 +5,7 @@ import Projects from '../components/page/project/Projects';
 import ProjectContext from '../components/page/project/ProjectContext';
 import { IProject } from '../components/page/project/IProject';
 import Project from '../components/page/project/Project';
+import { createUId } from '../lib/utils/uid-creator';
 
 interface Props {
   children?: React.ReactNode
@@ -20,16 +21,20 @@ const defaultPanes: TabsProps['items'] = new Array(1).fill(null).map((_, index) 
 const Home = (props: Props) => {
   const [activeKey, setActiveKey] = useState(defaultPanes[0].key);
   const [items, setItems] = useState(defaultPanes);
-  const newTabIndex = useRef(0);
 
   const onChange = (key: string) => {
     setActiveKey(key);
   };
 
-  const add = (project: IProject, children?: React.ReactNode) => {
+  const add = (projectName: string, projectId?: number, children?: React.ReactNode) => {
+    let newActiveKey = '';
+    if (!projectId) {
+      newActiveKey = createUId()
+    } else {
+      newActiveKey = projectId.toString();
+    }
 
-    const newActiveKey = project.id.toString();
-    setItems([...items, { label: project.name, children: children, key: newActiveKey }]);
+    setItems([...items, { label: projectName, children: children, key: newActiveKey }]);
     setActiveKey(newActiveKey);
   };
 
@@ -43,28 +48,31 @@ const Home = (props: Props) => {
     setItems(newPanes);
   };
 
-  const onEdit = (targetKey: TargetKey, action: 'add' | 'remove', project?: IProject) => {
+  const onEdit = (targetKey: TargetKey, action: 'add' | 'remove', projectId?: number, projectName?: string) => {
     if (action === 'add') {
-      add(project);
+      add('Yeni Proje', undefined, <Project></Project>);
     } else {
       remove(targetKey);
     }
   };
 
-  const openProject = (project: IProject) => {
-    add(project,
-      <Project project={project}></Project>
+  const openProject = (projectId: number, projectName: string) => {
+    add(projectName, projectId,
+      <Project projectId={projectId}></Project>
     )
+  }
 
+  const closeProject = (project: IProject) => {
+    console.log(project)
   }
 
   return (
     <ProjectContext.Provider value={{
-      open: openProject
+      open: openProject,
+      close: closeProject
     }}>
       <div className='page'>
         <Tabs
-          hideAdd
           onChange={onChange}
           activeKey={activeKey}
           type="editable-card"
