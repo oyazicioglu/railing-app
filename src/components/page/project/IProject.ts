@@ -1,9 +1,9 @@
-import { ISystem } from "../../../lib/electron/system/ISystem";
+import { ISystem } from "../system/ISystem";
 
 export type IProject = {
     id?: number;
     name: string;
-    createdAt: Date;
+    createdAt?: Date;
     updatedAt?: Date;
     system?: ISystem;
 };

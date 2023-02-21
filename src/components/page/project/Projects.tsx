@@ -1,12 +1,15 @@
-import { CheckOutlined, DeleteOutlined, DeleteTwoTone, MoreOutlined } from '@ant-design/icons';
-import { Edit } from '@carbon/icons-react';
-import { Button, Dropdown, Space, Table, Typography } from 'antd';
+import DeleteOutlined from '@ant-design/icons/DeleteOutlined';
+import Edit from '@ant-design/icons/EditOutlined'
+import { Button, Dropdown, Popconfirm, Space, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
 import { useContext, useEffect, useState } from 'react';
 import { channels } from '../../../lib/electron/events/Electron.Channels';
 import { PropsBase } from '../../../lib/electron/Props.Base'
 import { IProject } from './IProject'
 import ProjectContext from './ProjectContext';
+import "./Project.css";
+import PlusOutlined from '@ant-design/icons/lib/icons/PlusOutlined';
+import "./Projects.css";
 
 const { Title } = Typography;
 
@@ -24,17 +27,15 @@ interface ConvertedProject {
     systemName: string;
 }
 
-interface ConvertedSystem {
-    key: number;
-    id: number;
-    name: string;
-}
-
 
 const Projects = (props: Props) => {
     const { on, send } = window.eventBridge;
     const [projects, setProjects] = useState<ConvertedProject[] | undefined>([])
     const context = useContext(ProjectContext)
+
+    const projeSil = (e: React.MouseEvent<HTMLElement>, projectId: number) => {
+        send(channels.project.delete, { id: projectId })
+    };
 
     const columns: ColumnsType<ConvertedProject> = [
         {
@@ -76,8 +77,19 @@ const Projects = (props: Props) => {
             width: '120px',
             render: (_, record) => (
                 <Space direction='horizontal'>
-                    <Button type="dashed" shape="circle" icon={<Edit />} />
-                    <Button type="dashed" shape="circle" icon={<DeleteOutlined />} />
+                    <Button onClick={() => {
+                        context.open(record.id, record.name)
+                    }} type="dashed" shape="circle" icon={<Edit />} />
+                    <Popconfirm
+                        placement="topRight"
+                        title="Proje Sil"
+                        description="Projeyi silmek istediğinizden emin misiniz?"
+                        onConfirm={(e: React.MouseEvent<HTMLElement>) => { projeSil(e, record.id) }}
+                        okText="Evet"
+                        cancelText="Hayır"
+                    >
+                        <Button type="dashed" shape="circle" icon={<DeleteOutlined />} />
+                    </Popconfirm>
                 </Space>
             )
         }
@@ -103,14 +115,27 @@ const Projects = (props: Props) => {
         setProjects(convertedProject)
     })
 
+    on(channels.project.delete, (data: IProject) => {
+        if (data) {
+            getProjects();
+        }
+    })
+
     useEffect(() => {
         getProjects();
     }, []);
 
     return (
-        <div className="page">
-            <Title>Projeler</Title>
-            <Table dataSource={projects} columns={columns} pagination={{ pageSize: 20 }} scroll={{ scrollToFirstRowOnChange: true, y: '100%' }} />;
+        <div className="projects-page">
+            <div className="page-header">
+                <Title>Projeler</Title>
+                <Button onClick={() => { context.open(undefined, 'Yeni Proje') }} type="primary" icon={<PlusOutlined />} shape='circle' size={'large'}>
+
+                </Button>
+            </div>
+            <div className="projects-table">
+                <Table dataSource={projects} columns={columns} pagination={{ pageSize: 10, hideOnSinglePage: true }} />;
+            </div>
         </div>
     )
 }

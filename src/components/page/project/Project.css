@@ -1,0 +1,18 @@
+.project-layout {
+    display: grid;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    margin: auto;
+    grid-template-columns: 200px 1fr;
+    position: absolute;
+}
+
+.ant-tabs-tabpane {
+    position: relative;
+}
+
+.sidebar {
+    border-right: 1px dashed rgba(0, 0, 0, 0.1);
+}

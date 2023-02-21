@@ -6,4 +6,11 @@ export const channels = {
         delete: 'project:delete',
         update: 'project:update',
     },
+    system: {
+        list: 'system:list',
+        add: 'system:add',
+        get: 'system:get',
+        delete: 'system:delete',
+        update: 'system:update',
+    }
 };

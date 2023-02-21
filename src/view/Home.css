@@ -1,0 +1,17 @@
+.home-page {
+    height: 100vh;
+}
+
+.ant-tabs {
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+}
+
+.ant-tabs-content {
+    height: 100%;
+}
+
+.ant-tabs-tabpane {
+    height: 100%;
+}

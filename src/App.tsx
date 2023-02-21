@@ -8,9 +8,6 @@ const root = createRoot(container); // createRoot(container!) if you use TypeScr
 root.render(
     <ConfigProvider theme={{
         algorithm: theme.compactAlgorithm,
-        token: {
-            colorPrimary: '#b81c30',
-        },
     }}>
         <App>
             <Home></Home>

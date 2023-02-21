@@ -22,7 +22,30 @@ model Project {
 }
 
 model System {
-  id       Int       @id @default(autoincrement())
-  name     String
-  projects Project[]
+  id          Int         @id @default(autoincrement())
+  name        String
+  type        String
+  projects    Project[]
+  accessories Accessory[]
+  profiles    Profile[]
+}
+
+model Profile {
+  id         Int      @id @default(autoincrement())
+  code       String
+  price      Int?
+  width      Int
+  height     Int
+  depth      Int
+  weight     Int
+  objectPath String
+  system     System[]
+}
+
+model Accessory {
+  id         Int      @id @default(autoincrement())
+  code       String
+  price      Int?
+  objectPath String
+  system     System[]
 }

@@ -1,0 +1,14 @@
+.projects-page {
+    height: 100%;
+    display: grid;
+    grid-template-rows: auto 1fr;
+    height: 100%;
+}
+
+.page-header {
+    padding: 0 0.5rem;
+    display: grid;
+    grid-auto-flow: column;
+    justify-content: space-between;
+    align-items: center;
+}

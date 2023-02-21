@@ -1,11 +1,11 @@
 import React, { useRef, useState } from 'react'
-import PropTypes from 'prop-types'
 import { Tabs, TabsProps, ConfigProvider, theme } from 'antd'
 import Projects from '../components/page/project/Projects';
 import ProjectContext from '../components/page/project/ProjectContext';
 import { IProject } from '../components/page/project/IProject';
 import Project from '../components/page/project/Project';
 import { createUId } from '../lib/utils/uid-creator';
+import "./Home.css";
 
 interface Props {
   children?: React.ReactNode
@@ -71,7 +71,7 @@ const Home = (props: Props) => {
       open: openProject,
       close: closeProject
     }}>
-      <div className='page'>
+      <div className='home-page'>
         <Tabs
           onChange={onChange}
           activeKey={activeKey}

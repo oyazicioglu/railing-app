@@ -38,6 +38,14 @@ export class ProjectRepository {
         const client = new PrismaClient();
         const project = await client.project
             .findFirst({
+                include: {
+                    system: {
+                        include: {
+                            accessories: true,
+                            profiles: true
+                        }
+                    }
+                },
                 where: {
                     id: projectId,
                 },
