@@ -1,16 +1,33 @@
-import React from 'react'
-import PropTypes from 'prop-types'
+import { useEffect } from 'react';
+import { channels } from '../../../lib/electron/events/Electron.Channels';
 import { PropsBase } from '../../../lib/electron/Props.Base'
-import { IProject } from './IProject'
+import { IProject } from './IProject';
 
 interface Props extends PropsBase {
-    project: IProject
+    projectId?: number
 }
 
 const Project = (props: Props) => {
+    const { on, send } = window.eventBridge;
+
+    const getProject = () => {
+        send(channels.project.get, { id: props.projectId });
+    }
+
+    on(channels.project.get, (data: IProject) => {
+        console.log(data)
+    })
+
+    useEffect(() => {
+        console.log(props)
+        if (props.projectId) {
+            getProject();
+        }
+    }, [])
+
     return (
         <div>
-            {JSON.stringify(props.project)}
+            {JSON.stringify(props)}
         </div>
     )
 }

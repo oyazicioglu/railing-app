@@ -1,10 +1,10 @@
-import { CheckOutlined } from '@ant-design/icons';
-import { Button, Space, Table, Typography } from 'antd';
+import { CheckOutlined, DeleteOutlined, DeleteTwoTone, MoreOutlined } from '@ant-design/icons';
+import { Edit } from '@carbon/icons-react';
+import { Button, Dropdown, Space, Table, Typography } from 'antd';
 import { ColumnsType } from 'antd/es/table';
-import React, { useContext, useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 import { channels } from '../../../lib/electron/events/Electron.Channels';
 import { PropsBase } from '../../../lib/electron/Props.Base'
-import { ISystem } from '../../../lib/electron/system/ISystem';
 import { IProject } from './IProject'
 import ProjectContext from './ProjectContext';
 
@@ -21,7 +21,6 @@ interface ConvertedProject {
     name: string;
     createdAt: string;
     updatedAt: string;
-    active: boolean;
     systemName: string;
 }
 
@@ -49,48 +48,40 @@ const Projects = (props: Props) => {
             dataIndex: 'name',
             key: 'name',
             render: (_, record) => (
-                <Button onClick={() => { openProject(record) }} type="link">{record.name}</Button>
+                <Button onClick={() => { context.open(record.id, record.name) }} type="link">{record.name}</Button>
             ),
-        },
-        {
-            title: 'Durum',
-            dataIndex: 'active',
-            key: 'active',
-            width: '64px',
-            render: (_, record) => (
-                record.active ? <CheckOutlined /> : ''
-            )
         },
         {
             title: 'Sistem',
             dataIndex: 'systemName',
             key: 'systemName',
-            width: '256px'
+            width: '140px'
         },
         {
             title: 'Güncelleme Tarihi',
             dataIndex: 'updatedAt',
             key: 'updatedAt',
-            width: '256px'
+            width: '150px'
         },
         {
             title: 'Oluşturma Tarihi',
             dataIndex: 'createdAt',
             key: 'createdAt',
-            width: '256px'
+            width: '140px'
         },
+        {
+            title: '...',
+            align: 'right',
+            key: 'actions',
+            width: '120px',
+            render: (_, record) => (
+                <Space direction='horizontal'>
+                    <Button type="dashed" shape="circle" icon={<Edit />} />
+                    <Button type="dashed" shape="circle" icon={<DeleteOutlined />} />
+                </Space>
+            )
+        }
     ];
-
-
-    const openProject = (project: ConvertedProject) => {
-        context.open({
-            active: project.active,
-            createdAt: new Date(project.createdAt),
-            name: project.name,
-            id: project.id,
-            updatedAt: new Date(project.updatedAt),
-        });
-    }
 
     const getProjects = () => {
         send(channels.project.list);
@@ -103,14 +94,12 @@ const Projects = (props: Props) => {
                 key: project.id,
                 index: index + 1,
                 name: project.name,
-                active: project.active,
                 createdAt: new Date(project.createdAt).toLocaleDateString('tr', { dateStyle: 'medium' }),
                 updatedAt: project.updatedAt ? new Date(project.updatedAt).toLocaleDateString('tr', { dateStyle: 'medium' }) : '-',
                 systemName: project.system.name
             }
         })
 
-        console.log(convertedProject)
         setProjects(convertedProject)
     })
 
