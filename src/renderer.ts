@@ -25,6 +25,7 @@
  *  });
  * ```
  */
+import 'bootstrap/dist/css/bootstrap.min.css';
 import './index.css';
 // Add this to the end of the existing file
 import './App';
