@@ -1,7 +1,6 @@
-import ColumnHeightOutlined from '@ant-design/icons/lib/icons/ColumnHeightOutlined'
-import ColumnWidthOutlined from '@ant-design/icons/lib/icons/ColumnWidthOutlined'
+import FieldStringOutlined from '@ant-design/icons/lib/icons/FieldStringOutlined'
 import { Form, Input, Checkbox, Button } from 'antd'
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { IProject } from './IProject'
 
 interface Props {
@@ -9,15 +8,10 @@ interface Props {
 }
 
 export const ProjectSettingsForm = (props: Props) => {
-    const [initialValues, setInitialValues] = useState<{ projectName: string }>({ projectName: '' });
-    const [projectName, setProjectName] = useState('');
-
-    const handleSetIntialValues = () => {
-        setInitialValues({ projectName: props.project?.name })
-    }
+    const [project, setProject] = useState<IProject>()
+    const [form] = Form.useForm();
 
     const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {
-        setProjectName(e.currentTarget.value)
     }
 
     const handleFormSubmit = (values: any) => {
@@ -25,26 +19,29 @@ export const ProjectSettingsForm = (props: Props) => {
     }
 
     useEffect(() => {
-        handleSetIntialValues();
-
+        setProject(props.project)
+        if (props.project) {
+            form.resetFields();
+            form.setFieldsValue({
+                'projectName': props.project.name
+            });
+        }
     }, [props.project]);
 
     return (
         <Form
+            form={form}
             onFinish={handleFormSubmit}
             size='small'
             name="normal_login"
             className="login-form"
-            initialValues={initialValues}
         >
-            <Form.Item
-                name="projectName"
-            >
-                <Input prefix={<ColumnWidthOutlined />} placeholder="Ad" onInput={handleInputChange} value={projectName} />
+            <Form.Item name="projectName">
+                <Input prefix={<FieldStringOutlined />} placeholder="Ad" />
             </Form.Item>
 
             <Form.Item>
-                <Button onClick={handleSetIntialValues} type="primary" block htmlType="submit" className="login-form-button">
+                <Button type="primary" block htmlType="submit" className="login-form-button">
                     Kaydet
                 </Button>
             </Form.Item>

@@ -26,7 +26,6 @@ const Project = (props: Props) => {
 
     on(channels.project.get, (data: IProject) => {
         setProject(data);
-        console.log(data)
     })
 
     useEffect(() => {

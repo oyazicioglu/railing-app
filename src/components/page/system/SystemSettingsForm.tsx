@@ -9,7 +9,8 @@ interface Props {
 
 export const SystemSettingsForm = (props: Props) => {
     const { on, send } = window.eventBridge;
-    const [systemOptionNames, setSystemOptionNames] = useState([]);
+    const [systemNames, setSystemNames] = useState([]);
+    const [form] = Form.useForm();
 
     const handleSystemChange = (value: Object, option: Object) => {
         console.log(value, option)
@@ -28,30 +29,31 @@ export const SystemSettingsForm = (props: Props) => {
             return { value: system.id, label: system.name }
         })
 
-        setSystemOptionNames(convertedSystemOptions)
+        setSystemNames(convertedSystemOptions)
     })
 
     useEffect(() => {
         getSystemNames()
-    }, [])
+        form.setFieldValue('systemType', props.system?.name)
+    }, [props.system])
 
     return (
         <Form
+            form={form}
             onFinish={handleOnFormFinish}
             size='small'
             name="system-form"
             className="system-form"
-            initialValues={{ systemType: systemOptionNames.map((option, index) => index === 0 && option.label) }}
         >
             <Form.Item
                 name="systemType"
             >
                 <Select
+                    options={systemNames}
                     id='systemType'
                     onChange={handleSystemChange}
-
-                    options={systemOptionNames}
-                />
+                >
+                </Select>
             </Form.Item>
 
             <Form.Item>
