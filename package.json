@@ -51,9 +51,7 @@
     "dependencies": {
         "@ant-design/icons": "^5.0.1",
         "@prisma/client": "^4.10.1",
-        "@react-three/drei": "^9.56.25",
         "@react-three/fiber": "^8.11.2",
-        "@react-three/gpu-pathtracer": "^0.0.3",
         "@reduxjs/toolkit": "^1.9.2",
         "@types/three": "^0.149.0",
         "antd": "^5.2.2",
