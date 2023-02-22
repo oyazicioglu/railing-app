@@ -1,4 +1,3 @@
-import { Object3D, Event } from "three/src/Three";
 import { IProfile } from "./IProfile";
 
 export class KM14079 implements IProfile {
