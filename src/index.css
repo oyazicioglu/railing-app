@@ -46,3 +46,8 @@ hr {
     width: 100%;
     background-color: var(--hr);
 }
+
+.mini-section {
+    padding: 1rem;
+    background-color: #ebebeb;
+}

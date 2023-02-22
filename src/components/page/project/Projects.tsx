@@ -5,19 +5,20 @@ import { IProject } from './IProject'
 import ProjectContext from './ProjectContext';
 import "./Project.css";
 import "./Projects.css";
-import { Button, Table } from 'react-bootstrap';
+import { Button, OverlayTrigger, Popover, Stack, Table } from 'react-bootstrap';
+import { Close } from '@carbon/icons-react';
 
 interface Props extends PropsBase {
     project?: IProject
 }
 
-
 const Projects = (props: Props) => {
     const { on, send } = window.eventBridge;
     const [projects, setProjects] = useState<IProject[]>([])
     const context = useContext(ProjectContext)
+    const [showPopover, setShowPopover] = useState(false);
 
-    const projeSil = (e: React.MouseEvent<HTMLElement>, projectId: number) => {
+    const deleteProject = (projectId: number) => {
         send(channels.project.delete, { id: projectId })
     };
 
@@ -39,6 +40,7 @@ const Projects = (props: Props) => {
         context.open(project.id, project.name)
     }
 
+
     useEffect(() => {
         getProjects();
     }, []);
@@ -59,7 +61,7 @@ const Projects = (props: Props) => {
                     </thead>
                     <tbody>
                         {projects.map((project, index) => {
-                            return <tr key={index + 1}>
+                            return <tr style={{ verticalAlign: 'middle' }} key={index + 1}>
                                 <td width={64}>{index + 1}</td>
                                 <td>
                                     <Button onClick={() => { openProject(project) }} variant="link">{project.name}</Button>
@@ -67,7 +69,9 @@ const Projects = (props: Props) => {
                                 <td width={160}>{project.system.name}</td>
                                 <td width={120}>{project.createdAt.toLocaleString('tr', { dateStyle: 'short' })}</td>
                                 <td width={120}>{project.updatedAt ? project.updatedAt.toLocaleString('tr', { dateStyle: 'short' }) : project.createdAt.toLocaleString('tr', { dateStyle: 'short' })}</td>
-                                <td width={120}></td>
+                                <td width={60}>
+                                    <Button onClick={() => { deleteProject(project.id) }} size='sm' variant='danger'>Sil</Button>
+                                </td>
                             </tr>
                         })}
                     </tbody>

@@ -2,8 +2,7 @@ import React, { ReactNode, useRef, useState } from 'react'
 import ProjectContext from '../components/page/project/ProjectContext';
 import { IProject } from '../components/page/project/IProject';
 import "./Home.css";
-import { Button, Container, Stack, Tab, TabProps, Tabs } from 'react-bootstrap';
-import { ProjectTab } from '../components/page/project/ProjectTab';
+import { Button, CloseButton, Container, Stack, Tab, TabProps, Tabs } from 'react-bootstrap';
 import { createUId } from '../lib/utils/uid-creator';
 import Project from '../components/page/project/Project';
 import Projects from '../components/page/project/Projects';
@@ -12,13 +11,15 @@ interface Props {
   children?: React.ReactNode
 }
 
+type tabType = { key: string, title: string, projectId?: number };
+
 const Home = (props: Props) => {
   const [key, setKey] = useState('home');
-  const [tabs, setTabs] = useState<{ key: string, title: string, projectId?: number }[]>([])
+  const [tabs, setTabs] = useState<tabType[]>([])
 
   const openProject = (projectId: number, projectName: string) => {
     const key = createUId()
-    setTabs([...tabs, { key: key, title: projectName }])
+    setTabs([...tabs, { key: key, title: projectName, projectId: projectId }])
     setKey(key)
   }
 
@@ -32,14 +33,15 @@ const Home = (props: Props) => {
     setKey(key)
   }
 
-  const closeProject = (project: IProject) => {
-    console.log(project)
+  const closeTab = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tab: tabType) => {
+    e.preventDefault();
+    const otherTabs = tabs.filter(t => t.key !== tab.key)
+    setTabs(otherTabs);
   }
 
   return (
     <ProjectContext.Provider value={{
       open: openProject,
-      close: closeProject
     }}>
       <div className='home-page'>
         <Tabs
@@ -61,7 +63,12 @@ const Home = (props: Props) => {
           </Tab>
 
           {tabs.map(tab => {
-            return <Tab style={{ position: 'relative', height: '100%' }} key={tab.key} eventKey={tab.key} title={tab.title}>
+            return <Tab style={{ position: 'relative', height: '100%' }} key={tab.key} eventKey={tab.key} title={
+              <Stack direction='horizontal' gap={2}>
+                <span>{tab.title}</span>
+                <div onClick={(e) => { closeTab(e, tab) }}>x</div>
+              </Stack>
+            }>
               <Project projectId={tab.projectId}></Project>
             </Tab>
           })}

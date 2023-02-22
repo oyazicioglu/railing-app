@@ -1,8 +1,11 @@
 import { useEffect, useState } from 'react';
+import { Stack } from 'react-bootstrap';
 import { channels } from '../../../lib/electron/events/Electron.Channels';
 import { PropsBase } from '../../../lib/electron/Props.Base'
+import { SystemSettingsForm } from '../system/SystemSettingsForm';
 import { BaseScene } from '../three/BaseScene';
 import { IProject } from './IProject';
+import { ProjectSettingsForm } from './ProjectSettingsForm';
 
 interface Props extends PropsBase {
     projectId?: number
@@ -20,12 +23,16 @@ const Project = (props: Props) => {
         setProject(data);
     })
 
+
     useEffect(() => {
         if (props.projectId) {
             getProject();
         } else {
             setProject({
                 name: 'Yeni Proje',
+                system: {
+                    name: ''
+                }
             })
         }
     }, [])
@@ -33,10 +40,15 @@ const Project = (props: Props) => {
     return (
         <div className="project-layout">
             <div className="sidebar">
-                <p>Project</p>
+                <Stack gap={3} direction='vertical'>
+                    <ProjectSettingsForm project={project}></ProjectSettingsForm>
+                    <SystemSettingsForm system={project?.system}></SystemSettingsForm>
+                </Stack>
             </div>
             <div className="content">
-                <BaseScene></BaseScene>
+                <div className="canvas-container">
+                    <BaseScene></BaseScene>
+                </div>
             </div>
         </div>
     )

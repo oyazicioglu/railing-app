@@ -49,6 +49,7 @@
         "typescript": "~4.5.4"
     },
     "dependencies": {
+        "@carbon/icons-react": "^11.16.1",
         "@prisma/client": "^4.10.1",
         "@react-three/fiber": "^8.11.2",
         "@reduxjs/toolkit": "^1.9.2",
