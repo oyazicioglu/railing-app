@@ -20,8 +20,7 @@ export class SystemRepository {
                 id: systemId
             },
             include: {
-                accessories: true,
-                profiles: true
+                facades: true
             }
         })
 

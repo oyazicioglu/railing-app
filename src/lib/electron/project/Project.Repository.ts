@@ -41,8 +41,7 @@ export class ProjectRepository {
                 include: {
                     system: {
                         include: {
-                            accessories: true,
-                            profiles: true
+                            facades: true
                         }
                     }
                 },
