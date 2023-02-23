@@ -1,10 +1,11 @@
 import React, { useState } from 'react'
-import ProjectContext from '../components/page/project/ProjectContext';
+import ProjectTabContext from '../components/page/project/ProjectTabContext';
 import "./Home.css";
 import { Button, Container, Stack, Tab, Tabs } from 'react-bootstrap';
 import { createUId } from '../lib/utils/uid-creator';
 import Project from '../components/page/project/Project';
 import Projects from '../components/page/project/Projects';
+import { ProjectType } from '../components/page/project/ProjectType';
 
 interface Props {
   children?: React.ReactNode
@@ -16,9 +17,9 @@ const Home = (props: Props) => {
   const [key, setKey] = useState('home');
   const [tabs, setTabs] = useState<tabType[]>([])
 
-  const openProject = (projectId: number, projectName: string) => {
+  const openProject = (project: ProjectType) => {
     const key = createUId()
-    setTabs([...tabs, { key: key, title: projectName, projectId: projectId }])
+    setTabs([...tabs, { key: key, title: project.name, projectId: project.id }])
     setKey(key)
   }
 
@@ -32,6 +33,15 @@ const Home = (props: Props) => {
     setKey(key)
   }
 
+  const changeProjectName = (projectId: number, projectName: string) => {
+    const foundTab = tabs.find(t => t.projectId === projectId);
+    const foundIndex = tabs.indexOf(foundTab)
+    if (foundIndex === -1) return;
+    foundTab.title = projectName
+    tabs[foundIndex] = foundTab;
+    setTabs([...tabs]);
+  }
+
   const closeTab = (e: React.MouseEvent<HTMLDivElement, MouseEvent>, tab: tabType) => {
     e.preventDefault();
     const otherTabs = tabs.filter(t => t.key !== tab.key)
@@ -40,8 +50,9 @@ const Home = (props: Props) => {
   }
 
   return (
-    <ProjectContext.Provider value={{
+    <ProjectTabContext.Provider value={{
       open: openProject,
+      changeProjectName: changeProjectName,
     }}>
       <div className='home-page'>
         <Tabs
@@ -74,7 +85,7 @@ const Home = (props: Props) => {
           })}
         </Tabs>
       </div>
-    </ProjectContext.Provider>
+    </ProjectTabContext.Provider>
   )
 }
 
