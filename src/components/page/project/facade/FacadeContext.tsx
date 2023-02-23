@@ -1,6 +1,6 @@
 import { createContext } from "react";
 
-export interface IFacade {
+export type IFacade = {
     index: number;
     id: string;
     width?: number;
