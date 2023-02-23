@@ -1,17 +1,23 @@
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react'
+import { ChangeEvent, FormEvent, useContext, useEffect, useRef, useState } from 'react'
 import { Button, Form, Stack } from 'react-bootstrap'
-import { IProject } from './IProject'
+import { ProjectType } from './ProjectType'
+import ProjectTabContext from './ProjectTabContext'
 
 interface Props {
-    project: IProject
+    project: ProjectType
 }
 
 export const ProjectSettingsForm = (props: Props) => {
-    const [project, setProject] = useState<IProject>(undefined);
+    const [project, setProject] = useState<ProjectType>(undefined);
     const form = useRef();
     const [projectName, setProjectName] = useState(props.project?.name);
+    const context = useContext(ProjectTabContext);
 
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => { setProjectName(event.target.value) }
+    const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
+        const name = event.target.value
+        setProjectName(name);
+        context.changeProjectName(project.id, name)
+    }
 
     const handleForm = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
@@ -28,7 +34,7 @@ export const ProjectSettingsForm = (props: Props) => {
                 <Form ref={form} onSubmit={handleForm}>
                     <Stack gap={1}>
                         <h5>Proje Ayarları</h5>
-                        <Form.Control size="sm" type="text" value={project.name} id="form-name" onChange={handleChange} placeholder="Ad" />
+                        <Form.Control size="sm" type="text" value={projectName} id="form-name" onChange={handleChange} placeholder="Ad" />
                     </Stack>
                 </Form>
             }

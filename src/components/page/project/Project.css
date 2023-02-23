@@ -31,3 +31,7 @@
     width: 100%;
     overflow: auto;
 }
+
+.save-button-container {
+    padding: 0 1rem;
+}

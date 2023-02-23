@@ -1,21 +1,20 @@
 import { useContext, useEffect, useState } from 'react';
 import { channels } from '../../../lib/electron/events/Electron.Channels';
 import { PropsBase } from '../../../lib/electron/Props.Base'
-import { IProject } from './IProject'
-import ProjectContext from './ProjectContext';
+import { ProjectType } from './ProjectType'
+import ProjectTabContext from './ProjectTabContext';
 import "./Project.css";
 import "./Projects.css";
 import { Button, Table } from 'react-bootstrap';
 
 interface Props extends PropsBase {
-    project?: IProject
+    project?: ProjectType
 }
 
 const Projects = (props: Props) => {
     const { on, send } = window.eventBridge;
-    const [projects, setProjects] = useState<IProject[]>([])
-    const context = useContext(ProjectContext)
-    const [showPopover, setShowPopover] = useState(false);
+    const [projects, setProjects] = useState<ProjectType[]>([])
+    const tabContext = useContext(ProjectTabContext)
 
     const deleteProject = (projectId: number) => {
         send(channels.project.delete, { id: projectId })
@@ -25,18 +24,18 @@ const Projects = (props: Props) => {
         send(channels.project.list);
     }
 
-    on(channels.project.list, (data: IProject[]) => {
+    on(channels.project.list, (data: ProjectType[]) => {
         setProjects(data)
     })
 
-    on(channels.project.delete, (data: IProject) => {
+    on(channels.project.delete, (data: ProjectType) => {
         if (data) {
             getProjects();
         }
     })
 
-    const openProject = (project: IProject) => {
-        context.open(project.id, project.name)
+    const openProject = (project: ProjectType) => {
+        tabContext.open(project)
     }
 
     useEffect(() => {

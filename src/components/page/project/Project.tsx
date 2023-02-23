@@ -1,11 +1,11 @@
 import { useEffect, useState } from 'react';
-import { Stack } from 'react-bootstrap';
+import { Button, Stack } from 'react-bootstrap';
 import { channels } from '../../../lib/electron/events/Electron.Channels';
 import { PropsBase } from '../../../lib/electron/Props.Base'
 import { SystemSettingsForm } from '../system/SystemSettingsForm';
 import { BaseScene } from '../three/BaseScene';
 import { Facades } from './facade/Facades';
-import { IProject } from './IProject';
+import { ProjectType } from './ProjectType';
 import { ProjectSettingsForm } from './ProjectSettingsForm';
 
 interface Props extends PropsBase {
@@ -14,13 +14,15 @@ interface Props extends PropsBase {
 
 const Project = (props: Props) => {
     const { on, send } = window.eventBridge;
-    const [project, setProject] = useState<IProject>(undefined)
+    const [project, setProject] = useState<ProjectType>(undefined)
 
     const getProject = () => {
         send(channels.project.get, { id: props.projectId });
     }
 
-    on(channels.project.get, (data: IProject) => {
+    on(channels.project.get, (data: ProjectType) => {
+        console.log(data);
+
         setProject(data);
     })
 
@@ -42,7 +44,9 @@ const Project = (props: Props) => {
             <div className="sidebar">
                 <div className="sidebar-container">
                     <Stack className='sidebar-scroll' direction='vertical'>
-
+                        <Stack direction='horizontal' className='save-button-container'>
+                            <Button size='sm' style={{ width: '100%' }} variant='outline-primary'>Kaydet</Button>
+                        </Stack>
                         <ProjectSettingsForm project={project}></ProjectSettingsForm>
                         <SystemSettingsForm system={project?.system}></SystemSettingsForm>
                         <Facades>
