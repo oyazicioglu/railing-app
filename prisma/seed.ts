@@ -4,53 +4,12 @@ const prisma = new PrismaClient()
 
 async function main() {
 
-    const profile1 = await prisma.profile.upsert({
-        create: {
-            code: 'KM14079',
-            weight: 5718,
-            depth: 34,
-            height: 50,
-            width: 6000,
-            objectPath: '/path/to/KM14079',
-            price: 2
-        },
-        update: {},
-        where: {
-            id: 1
-        }
-    })
-
-    const accessory1 = await prisma.accessory.upsert({
-        create: {
-            code: 'KM2050',
-            price: 1,
-            objectPath: '/path/to/KM2050'
-        },
-        update: {},
-        where: {
-            id: 1
-        }
-    })
-
     const system1 = await prisma.system.upsert({
         where: { id: 1 },
         create: {
             name: "Paris",
             id: 1,
-            type: "Paris",
-            accessories: {
-                connectOrCreate: {
-                    create: accessory1,
-                    where: { id: 1 }
-                }
-            },
-            profiles: {
-                connectOrCreate: {
-                    create: profile1,
-                    where: { id: 1 }
-                }
-            }
-
+            type: 0
         },
         update: {}
     })
@@ -60,19 +19,7 @@ async function main() {
         create: {
             name: "Bodrum",
             id: 2,
-            type: "Bodrum",
-            accessories: {
-                connectOrCreate: {
-                    create: accessory1,
-                    where: { id: 1 }
-                }
-            },
-            profiles: {
-                connectOrCreate: {
-                    create: profile1,
-                    where: { id: 1 }
-                }
-            }
+            type: 1
         },
         update: {}
     })
