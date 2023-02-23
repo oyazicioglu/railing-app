@@ -1,5 +1,5 @@
 import { IpcMain, IpcMainEvent } from "electron";
-import { channels } from "../../events/Electron.Channels";
+import { channels } from "../../electron/events/Electron.Channels";
 import { SystemService } from "../System.Service";
 
 export class SystemEvents {

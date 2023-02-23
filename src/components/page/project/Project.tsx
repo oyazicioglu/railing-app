@@ -33,7 +33,8 @@ const Project = (props: Props) => {
             setProject({
                 name: 'Yeni Proje',
                 system: {
-                    name: ''
+                    name: '',
+                    type: 0
                 }
             })
         }

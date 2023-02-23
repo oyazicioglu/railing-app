@@ -1,6 +1,6 @@
 import { Project } from '@prisma/client';
 import { IpcMain, IpcMainEvent } from 'electron';
-import { channels } from '../../events/Electron.Channels';
+import { channels } from '../../electron/events/Electron.Channels';
 import { ProjectService } from '../Project.Service';
 
 export class ProjectEvents {
