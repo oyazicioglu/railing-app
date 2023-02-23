@@ -1,0 +1,9 @@
+.facade {
+    font-size: 0.75rem;
+    box-sizing: border-box;
+    padding-left: 0.5rem;
+}
+
+.facade h6 {
+    margin-bottom: 0;
+}

@@ -3,7 +3,7 @@ body {
     margin: auto;
     margin: 0;
     padding: 0;
-    font-size: 14px;
+    font-size: 12px;
 }
 
 a,
@@ -14,40 +14,6 @@ a:active {
     text-decoration: none;
 }
 
-h1,
-h2,
-h3 {
-    padding: 0;
-    margin: 0;
-}
-
-h1 {
-    font-size: 2rem;
-    font-weight: 600;
-    color: var(--h1-color);
-}
-
-h2 {
-    font-size: 1.5rem;
-    font-weight: 500;
-    color: var(--h2-color);
-}
-
-h3 {
-    font-size: 1rem;
-    font-weight: normal;
-    color: var(--h3-color);
-}
-
-hr {
-    display: block;
-    border: none;
-    height: 1px;
-    width: 100%;
-    background-color: var(--hr);
-}
-
 .mini-section {
     padding: 1rem;
-    background-color: #ebebeb;
 }

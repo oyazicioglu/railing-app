@@ -4,6 +4,7 @@ import { channels } from '../../../lib/electron/events/Electron.Channels';
 import { PropsBase } from '../../../lib/electron/Props.Base'
 import { SystemSettingsForm } from '../system/SystemSettingsForm';
 import { BaseScene } from '../three/BaseScene';
+import { Facades } from './facade/Facades';
 import { IProject } from './IProject';
 import { ProjectSettingsForm } from './ProjectSettingsForm';
 
@@ -23,7 +24,6 @@ const Project = (props: Props) => {
         setProject(data);
     })
 
-
     useEffect(() => {
         if (props.projectId) {
             getProject();
@@ -40,9 +40,11 @@ const Project = (props: Props) => {
     return (
         <div className="project-layout">
             <div className="sidebar">
-                <Stack gap={3} direction='vertical'>
+                <Stack direction='vertical'>
                     <ProjectSettingsForm project={project}></ProjectSettingsForm>
                     <SystemSettingsForm system={project?.system}></SystemSettingsForm>
+                    <Facades>
+                    </Facades>
                 </Stack>
             </div>
             <div className="content">

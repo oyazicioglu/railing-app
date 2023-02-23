@@ -1,4 +1,4 @@
-import { Prisma, PrismaClient, Project } from '@prisma/client';
+import { PrismaClient, Project } from '@prisma/client';
 
 export class ProjectRepository {
     async List() {

@@ -5,8 +5,7 @@ import { IProject } from './IProject'
 import ProjectContext from './ProjectContext';
 import "./Project.css";
 import "./Projects.css";
-import { Button, OverlayTrigger, Popover, Stack, Table } from 'react-bootstrap';
-import { Close } from '@carbon/icons-react';
+import { Button, Table } from 'react-bootstrap';
 
 interface Props extends PropsBase {
     project?: IProject
@@ -40,7 +39,6 @@ const Projects = (props: Props) => {
         context.open(project.id, project.name)
     }
 
-
     useEffect(() => {
         getProjects();
     }, []);
@@ -48,7 +46,7 @@ const Projects = (props: Props) => {
     return (
         <div className="projects-page">
             {projects.length > 0 &&
-                <Table hover style={{ overflow: 'hidden' }}>
+                <Table hover size='sm' >
                     <thead >
                         <tr>
                             <th>#</th>

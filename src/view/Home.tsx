@@ -1,8 +1,7 @@
-import React, { ReactNode, useRef, useState } from 'react'
+import React, { useState } from 'react'
 import ProjectContext from '../components/page/project/ProjectContext';
-import { IProject } from '../components/page/project/IProject';
 import "./Home.css";
-import { Button, CloseButton, Container, Stack, Tab, TabProps, Tabs } from 'react-bootstrap';
+import { Button, Container, Stack, Tab, Tabs } from 'react-bootstrap';
 import { createUId } from '../lib/utils/uid-creator';
 import Project from '../components/page/project/Project';
 import Projects from '../components/page/project/Projects';
@@ -27,7 +26,7 @@ const Home = (props: Props) => {
     setKey(tabName)
   }
 
-  const addProject = () => {
+  const newProject = () => {
     const key = createUId()
     setTabs([...tabs, { key: key, title: "Yeni Proje" }])
     setKey(key)
@@ -37,6 +36,7 @@ const Home = (props: Props) => {
     e.preventDefault();
     const otherTabs = tabs.filter(t => t.key !== tab.key)
     setTabs(otherTabs);
+    setKey("home")
   }
 
   return (
@@ -55,7 +55,7 @@ const Home = (props: Props) => {
             <Container fluid>
               <Stack direction="horizontal" className='mh-4' gap={3}>
                 <h1>Projeler</h1>
-                <Button onClick={addProject} className='ms-auto' variant="primary">Yeni Proje</Button>
+                <Button onClick={newProject} className='ms-auto' variant="primary">Yeni Proje</Button>
               </Stack>
               <hr />
               <Projects></Projects>

@@ -29,6 +29,7 @@ export const SystemSettingsForm = (props: Props) => {
 
     const handleForm = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
+        console.log(systemName)
     }
 
     useEffect(() => {
@@ -41,7 +42,7 @@ export const SystemSettingsForm = (props: Props) => {
             {system &&
                 <Form ref={form} onSubmit={handleForm} >
                     <Stack gap={1}>
-                        <h3>Sistem Ayarları</h3>
+                        <h5>Sistem Ayarları</h5>
                         <Form.Select size='sm' defaultValue={system.id}>
                             <option>Bir Sistem Seçin</option>
                             {systemNames.map((systemInfo) => {
