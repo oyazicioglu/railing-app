@@ -1,7 +1,8 @@
 .facade {
     font-size: 0.75rem;
     box-sizing: border-box;
-    padding-left: 0.5rem;
+    padding: 0.5rem;
+    border: 1px dashed rgba(0, 0, 0, 0.1);
 }
 
 .facade h6 {

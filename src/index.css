@@ -3,7 +3,7 @@ body {
     margin: auto;
     margin: 0;
     padding: 0;
-    font-size: 12px;
+    font-size: 14px;
 }
 
 a,
@@ -15,5 +15,32 @@ a:active {
 }
 
 .mini-section {
-    padding: 1rem;
+    margin: 1rem;
+    box-sizing: border-box;
+}
+
+.btn-sm,
+.form-control-sm,
+.form-select-sm {
+    font-size: 0.75rem;
+    padding: 0.125rem 0.25rem;
+}
+
+.form-control-sm,
+.form-select-sm {
+    min-height: calc(1.25em + 0.25rem + 2px);
+}
+
+.btn-close {
+    font-size: 0.625rem;
+}
+
+h5 {
+    margin-bottom: 0;
+    font-size: 1.125em;
+}
+
+h6 {
+    color: rgb(100, 100, 100);
+    font-size: 1em;
 }

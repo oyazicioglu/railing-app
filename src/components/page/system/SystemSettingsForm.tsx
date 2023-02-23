@@ -49,7 +49,6 @@ export const SystemSettingsForm = (props: Props) => {
                                 return <option key={systemInfo.value} value={systemInfo.value}>{systemInfo.label}</option>
                             })}
                         </Form.Select>
-                        <Button variant='outline-secondary' type='submit' size='sm'> Kaydet </Button>
                     </Stack>
                 </Form>
             }

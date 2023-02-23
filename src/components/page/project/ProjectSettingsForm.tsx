@@ -29,7 +29,6 @@ export const ProjectSettingsForm = (props: Props) => {
                     <Stack gap={1}>
                         <h5>Proje Ayarları</h5>
                         <Form.Control size="sm" type="text" value={project.name} id="form-name" onChange={handleChange} placeholder="Ad" />
-                        <Button variant='outline-secondary' type='submit' size='sm'> Kaydet </Button>
                     </Stack>
                 </Form>
             }

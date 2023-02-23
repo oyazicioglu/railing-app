@@ -37,7 +37,6 @@ export const Facade = (props: Props) => {
                     </Stack>
                     <Form.Control size="sm" type="number" value={facadeWidth} id="facade-width" onChange={handleWidthChange} placeholder="Genişlik" />
                     <Form.Control size="sm" type="number" value={facadeHeight} id="facade-height" onChange={handleHeightChange} placeholder="Yükseklik" />
-                    <Button variant='outline-secondary' type='submit' size='sm'> Kaydet </Button>
                 </Stack>
             </Form>
         </div>

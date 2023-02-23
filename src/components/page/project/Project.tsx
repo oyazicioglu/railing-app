@@ -40,12 +40,15 @@ const Project = (props: Props) => {
     return (
         <div className="project-layout">
             <div className="sidebar">
-                <Stack direction='vertical'>
-                    <ProjectSettingsForm project={project}></ProjectSettingsForm>
-                    <SystemSettingsForm system={project?.system}></SystemSettingsForm>
-                    <Facades>
-                    </Facades>
-                </Stack>
+                <div className="sidebar-container">
+                    <Stack className='sidebar-scroll' direction='vertical'>
+
+                        <ProjectSettingsForm project={project}></ProjectSettingsForm>
+                        <SystemSettingsForm system={project?.system}></SystemSettingsForm>
+                        <Facades>
+                        </Facades>
+                    </Stack>
+                </div>
             </div>
             <div className="content">
                 <div className="canvas-container">

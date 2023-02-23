@@ -48,14 +48,16 @@ export const Facades = (props: Props) => {
                 update: updateFacade
             }} >
                 <Stack direction="vertical" gap={2}>
-                    <h5>Cepheler</h5>
+                    <Stack direction="horizontal" gap={3}>
+                        <h5>Cepheler</h5>
+                        <Button onClick={createNewFacade} className='ms-auto' variant='outline-primary' size='sm'> Ekle </Button>
+                    </Stack>
                     <Stack gap={2} direction="vertical">
                         {facades.map((facade, index) => {
                             return <Facade facade={facade} key={index}></Facade>
                         })}
                     </Stack>
 
-                    <Button onClick={createNewFacade} variant='outline-secondary' size='sm'> Yeni Cephe </Button>
                 </Stack>
             </FacadeContext.Provider>
         </section>
