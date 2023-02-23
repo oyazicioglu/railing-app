@@ -1,5 +1,5 @@
 import { SystemType } from "../../../components/page/system/SystemType";
-import { ParisCreator } from "./subsystem/paris/Paris.Creator";
+import { ParisCreator } from "./systems/paris/Paris.Creator";
 import { System } from "./System";
 import { SystemTypes } from "./System.Types";
 
