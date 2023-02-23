@@ -59,7 +59,7 @@ const Home = (props: Props) => {
           activeKey={key}
           onSelect={onSelectTab}
           defaultActiveKey="home"
-          id="uncontrolled-tab-example"
+          id="projects-tab"
           className="mb-3"
         >
           <Tab eventKey="home" title="Home">
