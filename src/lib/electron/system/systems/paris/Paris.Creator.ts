@@ -1,7 +1,7 @@
-import { IAccessory } from "../../accessory/IAccessory";
-import { KM2050 } from "../../accessory/KM2050";
-import { IProfile } from "../../profile/IProfile";
-import { KM14079 } from "../../profile/KM14079";
+import { IAccessory } from "../../accessories/IAccessory";
+import { KM2050 } from "../../accessories/KM2050";
+import { IProfile } from "../../profiles/IProfile";
+import { KM14079 } from "../../profiles/KM14079";
 import { Paris } from "./Paris";
 
 export class ParisCreator {

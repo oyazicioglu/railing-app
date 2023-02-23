@@ -1,8 +1,8 @@
-import { IAccessory } from "../../accessory/IAccessory";
-import { IProfile } from "../../profile/IProfile";
-import { ISubSystem } from "../ISubSystem";
+import { IAccessory } from "../../accessories/IAccessory";
+import { ISystem } from "../../ISystem";
+import { IProfile } from "../../profiles/IProfile";
 
-export class Paris implements ISubSystem {
+export class Paris implements ISystem {
     constructor() {
     }
 
@@ -20,9 +20,5 @@ export class Paris implements ISubSystem {
     }
     public set accessories(v: IAccessory[]) {
         this._accessories = v;
-    }
-
-    public get profilesAndAccessories(): { profiles: IProfile[], accessories: IAccessory[] } {
-        return { profiles: this.profiles, accessories: this.accessories }
     }
 }
