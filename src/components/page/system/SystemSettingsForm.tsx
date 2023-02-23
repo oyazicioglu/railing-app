@@ -1,27 +1,30 @@
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from 'react';
 import { Form, Stack, Button } from 'react-bootstrap';
 import { channels } from '../../../lib/electron/events/Electron.Channels';
-import { ISystem } from './ISystem'
+import { SystemType } from './SystemType'
 
 interface Props {
-    system?: ISystem
+    system?: SystemType
 }
 
 export const SystemSettingsForm = (props: Props) => {
     const { on, send } = window.eventBridge;
     const [systemNames, setSystemNames] = useState<{ value: string, label: string }[]>([]);
-    const [systemName, setSystemName] = useState(props.system?.name);
+    const [systemType, setSystemType] = useState(props.system?.id);
     const [system, setSystem] = useState(props.system);
     const form = useRef();
 
     const getSystemNames = () => {
         send(channels.system.list);
     }
-    const handleChange = (event: ChangeEvent<HTMLInputElement>) => { setSystemName(event.target.value) }
+    const handleChange = (event: ChangeEvent<HTMLSelectElement>) => {
+        setSystemType(Number(event.target.value))
+        console.log(event.target.value);
+    }
 
-    on(channels.system.list, (data: ISystem[]) => {
+    on(channels.system.list, (data: SystemType[]) => {
         const convertedSystemOptions = data.map((system) => {
-            return { value: system.id.toString(), label: system.name }
+            return { value: system.type.toString(), label: system.name }
         })
 
         setSystemNames(convertedSystemOptions)
@@ -29,7 +32,7 @@ export const SystemSettingsForm = (props: Props) => {
 
     const handleForm = (event: FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        console.log(systemName)
+        console.log(system)
     }
 
     useEffect(() => {
@@ -43,7 +46,7 @@ export const SystemSettingsForm = (props: Props) => {
                 <Form ref={form} onSubmit={handleForm} >
                     <Stack gap={1}>
                         <h5>Sistem Ayarları</h5>
-                        <Form.Select size='sm' defaultValue={system.id}>
+                        <Form.Select size='sm' onChange={handleChange} defaultValue={system.type}>
                             <option>Bir Sistem Seçin</option>
                             {systemNames.map((systemInfo) => {
                                 return <option key={systemInfo.value} value={systemInfo.value}>{systemInfo.label}</option>
