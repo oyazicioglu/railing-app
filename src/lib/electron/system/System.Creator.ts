@@ -1,12 +1,16 @@
+import { SystemType } from "../../../components/page/system/SystemType";
 import { ParisCreator } from "./subsystem/paris/Paris.Creator";
 import { System } from "./System";
+import { SystemTypes } from "./System.Types";
 
 export class SystemCreator {
-    static CreateByType(type: string) {
+    static CreateByType(type: SystemTypes) {
         switch (type) {
-            case 'paris':
+            case SystemTypes.Paris:
                 return this.CreateSystemWithParis()
 
+            case SystemTypes.Bodrum:
+                return this.CreateSystemWithBodrum()
             default:
                 break;
         }
@@ -17,6 +21,11 @@ export class SystemCreator {
     }
 
     static CreateSystemWithParis() {
+        const paris = ParisCreator.Create()
+        return new System(paris);
+    }
+
+    static CreateSystemWithBodrum() {
         const paris = ParisCreator.Create()
         return new System(paris);
     }
